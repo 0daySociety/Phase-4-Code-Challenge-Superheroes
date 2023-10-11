@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy_serializer import SerializerMixin
 
 db = SQLAlchemy()
 
@@ -7,7 +8,7 @@ class Hero(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name =db.Column(db.String)
-    power_name =db.Column(db.String)
+    super_name =db.Column(db.String)
     updated_at=db.Column(db.DateTime(), server_default= db.func.now())
     hero_power = db.relationship("Hero_Power", back_populates="heroes")
 
@@ -31,8 +32,8 @@ class Hero_Power(db.Model):
     power_id =db.Column(db.Integer,db.ForeignKey("power.id"))
     created_at=db.Column(db.DateTime,server_default=db.func.now())
     updated_at =db.Column(db.DateTime, server_default=db.func.now())
-    power =db.relationship("Power",back_populates="powerhero")
-    hero =db.relationship("Hero",back_populates ="heropower")
+    powers =db.relationship("Power",back_populates="power_heros")
+    heroes =db.relationship("Hero",back_populates ="hero_power")
 
 
 
